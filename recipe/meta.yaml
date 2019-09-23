@@ -1,34 +1,33 @@
 {% set name = "PIMS" %}
 {% set version = "0.4.1" %}
+{% set sha256 = "6a53a155e900b44e71127a1e1fccbfbaed7eec3c2b52497c40c23a05f334c9dd" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 6a53a155e900b44e71127a1e1fccbfbaed7eec3c2b52497c40c23a05f334c9dd
+  sha256: {{ sha256 }}
 
 build:
-  number: 0
   noarch: python
+  number: 0
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
   host:
     - python
     - pip
-
   run:
     - python
     - slicerator >=0.9.7
     - six >=1.8
     - numpy >=1.7
-# The following dependencies are only required for rich IPython display
+    # The following dependencies are only required for rich IPython display
     - jinja2
     - pillow
-# The following dependencies are optional (for specific readers)
+    # The following dependencies are optional (for specific readers)
     - scipy  # one of { scikit-image | matplotlib | scipy }
     - tifffile
 
@@ -62,12 +61,3 @@ about:
   summary: >
       Python Image Sequence. Load video and sequential images in many formats 
       with a simple, consistent interface.
-
-extra:
-  recipe-maintainers:
-    - danielballan
-    - ericdill
-    - jakirkham
-    - licode
-    - tacaswell
-    - caspervdw
